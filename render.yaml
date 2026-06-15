@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: trinamix-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./workbench.db
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@trinamix.com
+      - key: ADMIN_PASSWORD
+        value: admin123
+      - key: ADMIN_NAME
+        value: Trinamix Admin
+      - key: AI_PROVIDER
+        value: none
+      - key: FRONTEND_ORIGIN
+        value: https://trinamix-frontend.onrender.com
+
+  - type: web
+    name: trinamix-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    envVars:
+      - key: BACKEND_URL
+        value: https://trinamix-backend.onrender.com
