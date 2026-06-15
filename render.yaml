@@ -2,6 +2,7 @@ services:
   - type: web
     name: trinamix-backend
     runtime: docker
+    plan: free
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     envVars:
@@ -20,11 +21,10 @@ services:
       - key: FRONTEND_ORIGIN
         value: https://trinamix-frontend.onrender.com
 
-  - type: web
+  - type: static
     name: trinamix-frontend
-    runtime: docker
-    dockerfilePath: ./frontend/Dockerfile
-    dockerContext: ./frontend
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
     envVars:
-      - key: BACKEND_URL
-        value: https://trinamix-backend.onrender.com
+      - key: VITE_API_URL
+        value: https://trinamix-backend.onrender.com/api
