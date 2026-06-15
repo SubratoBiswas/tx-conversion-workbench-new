@@ -21,8 +21,9 @@ services:
       - key: FRONTEND_ORIGIN
         value: https://trinamix-frontend.onrender.com
 
-  - type: static
+  - type: web
     name: trinamix-frontend
+    runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
     envVars:
